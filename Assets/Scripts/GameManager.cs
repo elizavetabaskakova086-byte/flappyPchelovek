@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [Header("Ссылки")]
     [SerializeField] private PlayerController _player;
     [SerializeField] private PipeSpawner _pipeSpawner;
+    [SerializeField] private MenuManager _menuManager;
 
     [Header("Настройки счёта")]
     [SerializeField] private float _scorePointX = 0f; // Позиция для подсчёта очков
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Начало игры.
+    /// Начало игры (вызывается меню).
     /// </summary>
     public void StartGame()
     {
@@ -38,6 +39,14 @@ public class GameManager : MonoBehaviour
         _currentScore = 0;
         _pipeSpawner?.ResetSpawner();
         _player?.ResetState();
+    }
+
+    /// <summary>
+    /// Остановка спавна труб (для меню).
+    /// </summary>
+    public void StopSpawning()
+    {
+        _pipeSpawner?.StopSpawning();
     }
 
     /// <summary>
@@ -58,6 +67,12 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log($"Game Over! Score: {_currentScore}, High Score: {_highScore}");
+
+        // Показываем Game Over меню
+        if (_menuManager != null)
+        {
+            _menuManager.ShowGameOver();
+        }
     }
 
     /// <summary>
@@ -65,10 +80,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void AddScore()
     {
-        if (!_isGameRunning) return;
+        if (!_isGameRunning)
+        {
+            Debug.LogWarning("[GameManager] AddScore вызван, но игра не запущена!");
+            return;
+        }
 
         _currentScore++;
-        Debug.Log($"Score: {_currentScore}");
+        Debug.Log($"[GameManager] Score: {_currentScore}");
     }
 
     /// <summary>
@@ -76,6 +95,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Restart()
     {
+        Debug.Log("[GameManager] Restart() вызван, перезагружаю сцену...");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

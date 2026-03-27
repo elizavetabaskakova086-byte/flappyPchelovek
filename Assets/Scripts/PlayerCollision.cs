@@ -14,20 +14,11 @@ public class PlayerCollision : MonoBehaviour
         _gameManager = FindObjectOfType<GameManager>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Столкновение с трубой или землёй
-        if (collision.gameObject.CompareTag("Obstacle") || 
-            collision.gameObject.CompareTag("Ground"))
-        {
-            _gameManager?.GameOver();
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Триггер смерти (например, пол)
-        if (collision.gameObject.CompareTag("DeathZone"))
+        // Столкновение с трубой или землёй
+        if (collision.CompareTag("Obstacle") || 
+            collision.CompareTag("Ground"))
         {
             _gameManager?.GameOver();
         }

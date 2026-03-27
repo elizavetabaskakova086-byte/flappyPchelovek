@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _rotationSpeed = 5f;
     [SerializeField] private float _maxRotation = 90f;
     [SerializeField] private float _minRotation = -30f;
+    [SerializeField] private float _deathY = -6f; // Позиция смерти при падении
 
     private Rigidbody2D _rb;
     private bool _isDead = false;
@@ -31,6 +32,13 @@ public class PlayerController : MonoBehaviour
         // Вращение игрока в зависимости от вертикальной скорости
         float targetRotation = Mathf.Clamp(_rb.linearVelocity.y * 10, _minRotation, _maxRotation);
         transform.rotation = Quaternion.Euler(0, 0, Mathf.LerpAngle(transform.eulerAngles.z, targetRotation, Time.deltaTime * _rotationSpeed));
+
+        // Смерть при падении ниже экрана
+        if (transform.position.y < _deathY)
+        {
+            SetDead();
+            FindObjectOfType<GameManager>()?.GameOver();
+        }
     }
 
     /// <summary>

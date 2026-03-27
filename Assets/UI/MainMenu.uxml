@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UXML xmlns="UnityEngine.UIElements" xmlns:uie="UnityEngine.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" schema-version="1">
+    <VisualElement name="MainMenu" style="flex-direction: column; justify-content: center; align-items: center; width: 100%; height: 100%;">
+        <VisualElement name="Background" style="position: absolute; width: 100%; height: 100%; background-color: rgba(135, 206, 235, 0.5);"/>
+        
+        <Label text="FLAPPY PCHELOVEK" style="font-size: 48; unity-font-style: bold; color: rgb(255, 255, 255); margin-bottom: 50; -unity-text-outline-width: 2; -unity-text-outline-color: rgb(0, 0, 0);"/>
+        
+        <Button name="StartButton" text="ИГРАТЬ" style="width: 200; height: 60; font-size: 24; margin-bottom: 20;"/>
+        
+        <Button name="QuitButton" text="ВЫЙТИ" style="width: 200; height: 60; font-size: 24;"/>
+        
+        <Label name="HighScoreLabel" text="Рекорд: 0" style="font-size: 18; color: rgb(255, 255, 255); margin-top: 50; -unity-text-outline-width: 1; -unity-text-outline-color: rgb(0, 0, 0);"/>
+    </VisualElement>
+</UXML>
